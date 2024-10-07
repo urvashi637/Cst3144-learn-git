@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title> Pet depot</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    </head>
+    <body>
+        <div id="app">
+            <header>
+            <h1 v-text="sitename"></h1>
+            </header>
+            <main>
+                <div v-if="showProduct">
+                <figure>
+                    <!--bind the image to the content-->
+                    <img v-bind:src="product.image">
+                </figure>
+                <h2 v-text="product.title"></h2>
+                <!-- any html code that u use in the description or anywjere else use v-html-->
+                <p v-html="product.description"></p>
+                <p>Price: {{product.price}}</p>
+                <button v-on:click="addToCart" v-if="canAddToCart">Add to cart</button>
+                <button disabled='disabled' v-else>
+                    Add to cart
+                </button>
+                <button v-on:click="showCheckout"> 
+                    {{cartItemCount}} 
+                   <span class="fas fa-cart-plus">Checkout</span>
+               </button>
+                </div>
+                <div v-else>
+                    <h2>Checkout</h2>
+                </div>
+
+               
+            </main>
+        </div>
+
+        <script type="text/JavaScript">
+        let webstore = new Vue({
+            el:'#app',
+            data:{
+                showProduct: true,
+                sitename:"Vue.js Pet Depot",
+                product:{
+                    id: 1001,
+                    title: "Dog Food, 25lb Bag",
+                    description: "A 25 pund bag of <em>irresistible</em> " + " organic goodness for your dog",
+                    price: 2000,
+                    image: "image/dog.jpg",
+                    availableInventory: 5
+                    
+                },
+                cart: []
+            },
+            methods:{
+                addToCart:function(){
+                    this.cart.push(this.lesson.id);
+                },
+                showCheckout(){
+                    this.showProduct = this.showProduct ? false : true;
+                }
+               
+            },
+            computed:{
+                    cartItemCount: function(){
+                        return this.cart.length ||"";
+                    },
+                    canAddToCart: function(){
+                        return this.product.availableInventory > this.cartItemCount;
+                    }
+                }
+        });
+
+        </script>
+
+    </body>
+</html>
