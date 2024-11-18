@@ -1,0 +1,9 @@
+{
+    "ProjectName": "Week 8b lab",
+    "author": "Urvashi Soni",
+    "version": "0.2.0",
+    "dependencies": {
+        "express": "^4.21.1",
+        "mongodb": "^3.6.3"
+    }
+}
